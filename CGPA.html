@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>CGPA Calculator</title>
+<style>
+        body {
+            font-family: cursive;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: powderblue;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+            background-color: mistyrose;
+        }
+        h1 {
+            text-align: center;
+        }
+        input[type="number"],
+        input[type="text"] {
+            font-family: cursive;
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            font-family: cursive;
+            background-color: plum;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: orchid;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CGPA Calculator</h1>
+        <form id="cgpaForm">
+            <div>
+                <label for="numSemesters">Number of Semesters Completed:</label>
+                <input type="number" placeholder="Enter no.of sem" id="numSemesters" min="1" required>
+            </div>
+            <div id="semesterInputs"></div>
+            <button type="button" id="calculateButton">Calculate CGPA</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculateButton').addEventListener('click', function() {
+            let semesters = parseInt(document.getElementById('numSemesters').value);
+            let resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = '';
+
+            let totalCredit = 0;
+            let totalScore = 0;
+
+            for (let i = 0; i < semesters; i++) {
+                let sub = parseInt(prompt("Enter number of courses in semester " + (i + 1)));
+                let sumCredit = 0;
+                let sumScore = 0;
+
+                for (let j = 0; j < sub; j++) {
+                    let credit = parseFloat(prompt("Enter credit of course " + (j + 1) + " in semester " + (i + 1)));
+                    let grade = parseFloat(prompt("Enter grade (in numerical) of course " + (j + 1) + " in semester " + (i + 1)));
+
+                    sumCredit += credit;
+                    sumScore += credit * grade;
+                }
+
+                let gpa = sumScore / sumCredit;
+                resultContainer.innerHTML += "GPA of semester " + (i + 1) + " is " + gpa.toFixed(2) + "<br>";
+
+                totalCredit += sumCredit;
+                totalScore += sumScore;
+            }
+
+            let cgpa = totalScore / totalCredit;
+            resultContainer.innerHTML += "CGPA is " + cgpa.toFixed(2);
+        });
+    </script>
+</body>
+</html>
+
